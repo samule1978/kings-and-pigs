@@ -3,6 +3,8 @@ class CollisionBlock {
     this.position = position
     this.width = 64
     this.height = 64
+
+    //this.draw()
   }
 
   draw() {

@@ -1,7 +1,13 @@
 window.addEventListener('keydown', (event) => {
   if (player.preventInput) return
+
+  //console.log(player.position.y)
+  
   switch (event.key) {
+    case 'ArrowUp':
     case 'w':
+      keys.w.count++
+
       for (let i = 0; i < doors.length; i++) {
         const door = doors[i]
 
@@ -20,13 +26,22 @@ window.addEventListener('keydown', (event) => {
           return
         }
       }
-      if (player.velocity.y === 0) player.velocity.y = -25
-
+      
+      
+      const step = 10
+      if (keys.w.count <= 3) {
+        player.velocity.y = -(keys.w.count * step)
+      } else {
+        player.velocity.y = 0
+        return
+      }
       break
+    case 'ArrowLeft':
     case 'a':
       // move player to the left
       keys.a.pressed = true
       break
+    case 'ArrowRight':
     case 'd':
       // move player to the right
       keys.d.pressed = true
@@ -36,15 +51,20 @@ window.addEventListener('keydown', (event) => {
 
 window.addEventListener('keyup', (event) => {
   switch (event.key) {
+    case 'ArrowUp':
+    case 'w':
+      keys.w.count = 1
+      break
+
+    case 'ArrowLeft':
     case 'a':
       // move player to the left
       keys.a.pressed = false
-
       break
+    case 'ArrowRight':
     case 'd':
       // move player to the right
       keys.d.pressed = false
-
       break
   }
 })

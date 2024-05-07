@@ -1,9 +1,13 @@
+
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
 canvas.width = 64 * 16 // 1024
 canvas.height = 64 * 9 // 576
 
+const show = {
+  collisionBlocks: false 
+}
 let parsedCollisions
 let collisionBlocks
 let background
@@ -62,7 +66,7 @@ const player = new Player({
   },
 })
 
-let level = 3
+let level = 1
 let levels = {
   1: {
     init: () => {
@@ -164,12 +168,15 @@ let levels = {
 const keys = {
   w: {
     pressed: false,
+    count: 1
   },
   a: {
     pressed: false,
+    count: 1
   },
   d: {
     pressed: false,
+    count: 1
   },
 }
 
@@ -181,9 +188,11 @@ function animate() {
   window.requestAnimationFrame(animate)
 
   background.draw()
-  // collisionBlocks.forEach((collisionBlock) => {
-  //   collisionBlock.draw()
-  // })
+  if (show.collisionBlocks) {
+    collisionBlocks.forEach((collisionBlock) => {
+      collisionBlock.draw()
+    })  
+  }
 
   doors.forEach((door) => {
     door.draw()
@@ -192,7 +201,7 @@ function animate() {
   player.handleInput(keys)
   player.draw()
   player.update()
-
+  
   c.save()
   c.globalAlpha = overlay.opacity
   c.fillStyle = 'black'
