@@ -42,6 +42,11 @@ class Player extends Sprite {
     this.checkForVerticalCollisions()
   }
 
+  getDown() {
+    keys.w.count = 0
+    this.velocity.y = 0  
+  }
+
   handleInput(keys) {
     if (this.preventInput) return
     this.velocity.x = 0
@@ -81,9 +86,7 @@ class Player extends Sprite {
   }
 
   checkForHorizontalCollisions() {
-    for (let i = 0; i < this.collisionBlocks.length; i++) {
-      const collisionBlock = this.collisionBlocks[i]
-
+    for (const collisionBlock of this.collisionBlocks) {
       // if a collision exists
       if (
         this.hitbox.position.x <=
@@ -119,9 +122,7 @@ class Player extends Sprite {
   }
 
   checkForVerticalCollisions() {
-    for (let i = 0; i < this.collisionBlocks.length; i++) {
-      const collisionBlock = this.collisionBlocks[i]
-
+    for (const collisionBlock of this.collisionBlocks) {
       // if a collision exists
       if (
         this.hitbox.position.x <=
@@ -134,18 +135,16 @@ class Player extends Sprite {
           collisionBlock.position.y + collisionBlock.height
       ) {
         if (this.velocity.y < 0) {
-          this.velocity.y = 0
+          this.velocity.y = 0          
           const offset = this.hitbox.position.y - this.position.y
-          this.position.y =
-            collisionBlock.position.y + collisionBlock.height - offset + 0.01
+          this.position.y = collisionBlock.position.y + collisionBlock.height - offset + 0.01
           break
         }
 
         if (this.velocity.y > 0) {
-          this.velocity.y = 0
-          const offset =
-            this.hitbox.position.y - this.position.y + this.hitbox.height
-          this.position.y = collisionBlock.position.y - offset - 0.01
+          this.velocity.y = 0          
+          const offset = this.hitbox.position.y - this.position.y + this.hitbox.height
+          this.position.y = collisionBlock.position.y - offset - 0.01          
           break
         }
       }

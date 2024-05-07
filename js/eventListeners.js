@@ -6,11 +6,15 @@ window.addEventListener('keydown', (event) => {
   switch (event.key) {
     case 'ArrowUp':
     case 'w':
-      keys.w.count++
+      if (keys.w.pressed) {
+        // Stop from jumping while pressing 'w' or 'ArrowUp' key        
+        //player.getDown()
+        return
+      }        
 
-      for (let i = 0; i < doors.length; i++) {
-        const door = doors[i]
-
+      keys.w.pressed = true            
+      
+      for (const door of doors) {
         if (
           player.hitbox.position.x + player.hitbox.width <=
             door.position.x + door.width &&
@@ -27,23 +31,25 @@ window.addEventListener('keydown', (event) => {
         }
       }
       
+      keys.w.count++     
       
       const step = 10
-      if (keys.w.count <= 3) {
-        player.velocity.y = -(keys.w.count * step)
-      } else {
-        player.velocity.y = 0
-        return
-      }
-      break
+      if (keys.w.count >= 1 && keys.w.count < 3) {                
+        player.velocity.y = -(keys.w.count * step)                
+      } else {        
+        player.getDown()        
+      }          
+      break      
     case 'ArrowLeft':
     case 'a':
       // move player to the left
+      //player.getDown()
       keys.a.pressed = true
       break
     case 'ArrowRight':
     case 'd':
       // move player to the right
+      //player.getDown()
       keys.d.pressed = true
       break
   }
@@ -52,18 +58,20 @@ window.addEventListener('keydown', (event) => {
 window.addEventListener('keyup', (event) => {
   switch (event.key) {
     case 'ArrowUp':
-    case 'w':
-      keys.w.count = 1
+    case 'w':      
+      if (keys.w.count >= 2) player.getDown()
+      keys.w.pressed = false
       break
-
     case 'ArrowLeft':
     case 'a':
       // move player to the left
-      keys.a.pressed = false
+      //player.getDown()
+      keys.a.pressed = false      
       break
     case 'ArrowRight':
     case 'd':
       // move player to the right
+      //player.getDown()
       keys.d.pressed = false
       break
   }

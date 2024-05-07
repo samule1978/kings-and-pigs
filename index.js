@@ -47,6 +47,7 @@ const player = new Player({
       imageSrc: './img/king/enterDoor.png',
       onComplete: () => {
         console.log('completed animation')
+        keys.w.count = 0
         gsap.to(overlay, {
           opacity: 1,
           onComplete: () => {
@@ -66,7 +67,7 @@ const player = new Player({
   },
 })
 
-let level = 1
+let level = 3
 let levels = {
   1: {
     init: () => {
