@@ -12,7 +12,7 @@ let parsedCollisions
 let collisionBlocks
 let background
 let doors
-let windows
+let boxes
 const player = new Player({
   imageSrc: './img/king/idle.png',
   frameRate: 11,
@@ -99,15 +99,26 @@ let levels = {
         }),
       ]
 
-      windows = [
+      boxes = [
         new Sprite({
           position: {
-            x: 300,
-            y: 275,
+            x: 400,
+            y: 353,
           },
-          imageSrc: './img/doorOpen.png',
-          frameRate: 5,
-          frameBuffer: 5,
+          imageSrc: './img/box.png',
+          frameRate: 1,
+          frameBuffer: 0,
+          loop: false,
+          autoplay: false,
+        }),
+        new Sprite({
+          position: {
+            x: 500,
+            y: 353,
+          },
+          imageSrc: './img/box.png',
+          frameRate: 1,
+          frameBuffer: 0,
           loop: false,
           autoplay: false,
         }),
@@ -146,7 +157,7 @@ let levels = {
         }),
       ]
 
-      windows = []
+      boxes = []
     },
   },
   3: {
@@ -180,7 +191,7 @@ let levels = {
         }),
       ]
 
-      windows = []
+      boxes = []
     },
   },
 }
@@ -222,8 +233,8 @@ function animate() {
   player.draw()
   player.update()
 
-  windows.forEach((window) => {
-    window.draw()
+  boxes.forEach((box) => {
+    box.draw()
   })
   
   c.save()
