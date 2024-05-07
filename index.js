@@ -12,6 +12,7 @@ let parsedCollisions
 let collisionBlocks
 let background
 let doors
+let windows
 const player = new Player({
   imageSrc: './img/king/idle.png',
   frameRate: 11,
@@ -67,7 +68,7 @@ const player = new Player({
   },
 })
 
-let level = 3
+let level = 1
 let levels = {
   1: {
     init: () => {
@@ -97,6 +98,20 @@ let levels = {
           autoplay: false,
         }),
       ]
+
+      windows = [
+        new Sprite({
+          position: {
+            x: 300,
+            y: 275,
+          },
+          imageSrc: './img/doorOpen.png',
+          frameRate: 5,
+          frameBuffer: 5,
+          loop: false,
+          autoplay: false,
+        }),
+      ]     
     },
   },
   2: {
@@ -130,6 +145,8 @@ let levels = {
           autoplay: false,
         }),
       ]
+
+      windows = []
     },
   },
   3: {
@@ -162,6 +179,8 @@ let levels = {
           autoplay: false,
         }),
       ]
+
+      windows = []
     },
   },
 }
@@ -202,6 +221,10 @@ function animate() {
   player.handleInput(keys)
   player.draw()
   player.update()
+
+  windows.forEach((window) => {
+    window.draw()
+  })
   
   c.save()
   c.globalAlpha = overlay.opacity
