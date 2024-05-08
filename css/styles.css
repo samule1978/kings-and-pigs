@@ -7,6 +7,6 @@ canvas {
     margin: auto;
     position: absolute;
     inset: 0;
-    width: 95vw;
+    width: clamp(min(90vw, 90vh), 1024px, min(95vw, 95vh));/*95vw;*/
     height: auto;
 }

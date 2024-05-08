@@ -1,14 +1,13 @@
 window.addEventListener('keydown', (event) => {
   if (player.preventInput) return
-
-  //console.log(player.position.y)
   
   switch (event.key) {
     case 'ArrowUp':
     case 'w':
+    case ' ':
       if (keys.w.pressed) {
         // Stop from jumping while pressing 'w' or 'ArrowUp' key        
-        //player.getDown()
+        //player.stopJumping()
         return
       }        
 
@@ -31,48 +30,60 @@ window.addEventListener('keydown', (event) => {
         }
       }
       
-      keys.w.count++     
-      
-      const step = 10
-      if (keys.w.count >= 1 && keys.w.count < 3) {                
-        player.velocity.y = -(keys.w.count * step)                
+      if  (
+            (!player.colliding.blocks.y.above) // Make sure you have not hit an obstacle above.
+            &&
+            ((!keys.a.pressed && !keys.d.pressed) && keys.w.count > 0 && keys.w.count <= player.velocity.multiJumpCount)
+            ||
+            ((keys.a.pressed || keys.d.pressed) && keys.w.count >= 1 && keys.w.count <= player.velocity.multiJumpCount && player.velocity.y < 3)
+          ) {        
+        player.velocity.y = -(keys.w.count * player.velocity.threshold)        
+        keys.w.count++
       } else {        
-        player.getDown()        
-      }          
+          player.stopJumping()        
+      }                
       break      
     case 'ArrowLeft':
     case 'a':
       // move player to the left
-      //player.getDown()
       keys.a.pressed = true
       break
     case 'ArrowRight':
     case 'd':
       // move player to the right
-      //player.getDown()
       keys.d.pressed = true
       break
   }
 })
 
 window.addEventListener('keyup', (event) => {
+  /*console.clear()
+  console.log(`Colliding X`, player.colliding.blocks.x)
+  console.log(`Colliding Y`, player.colliding.blocks.y)*/
+
   switch (event.key) {
     case 'ArrowUp':
-    case 'w':      
-      if (keys.w.count >= 2) player.getDown()
-      keys.w.pressed = false
+    case 'w':
+    case ' ':
+      player.stopJumping()
+      /*if (keys.w.count > 0) {
+        setTimeout(() => {          
+          player.stopJumping()
+        }, 250)        
+      }*/
+      keys.w.pressed = false      
       break
     case 'ArrowLeft':
     case 'a':
-      // move player to the left
-      //player.getDown()
-      keys.a.pressed = false      
+      // move player to the left      
+      keys.a.pressed = false
+      player.colliding.blocks.x.right = false
       break
     case 'ArrowRight':
     case 'd':
-      // move player to the right
-      //player.getDown()
+      // move player to the right      
       keys.d.pressed = false
+      player.colliding.blocks.x.left = false
       break
   }
 })

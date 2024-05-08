@@ -96,6 +96,7 @@ let levels = {
           frameBuffer: 5,
           loop: false,
           autoplay: false,
+          message: `No. 2`,
         }),
       ]
 
@@ -120,7 +121,7 @@ let levels = {
           frameRate: 1,
           frameBuffer: 0,
           loop: false,
-          autoplay: false,
+          autoplay: false,          
         }),
       ]     
     },
@@ -154,6 +155,7 @@ let levels = {
           frameBuffer: 5,
           loop: false,
           autoplay: false,
+          message: `No. 3`,
         }),
       ]
 
@@ -188,6 +190,7 @@ let levels = {
           frameBuffer: 5,
           loop: false,
           autoplay: false,
+          message: `No. 1`,
         }),
       ]
 
