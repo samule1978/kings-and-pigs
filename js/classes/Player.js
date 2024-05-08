@@ -58,7 +58,7 @@ class Player extends Sprite {
   }
 
   stopJumping() {
-    keys.w.count = 1
+    keys.up.count = 1
     this.velocity.y = 0
     //this.colliding.blocks.y.above = false
     //this.colliding.blocks.y.below = true
@@ -67,11 +67,11 @@ class Player extends Sprite {
   handleInput(keys) {
     if (this.preventInput) return
     this.velocity.x = 0
-    if (keys.d.pressed) {
+    if (keys.right.pressed) {
       this.switchSprite('runRight')
       this.velocity.x = 5
       this.lastDirection = 'right'
-    } else if (keys.a.pressed) {
+    } else if (keys.left.pressed) {
       this.switchSprite('runLeft')
       this.velocity.x = -5
       this.lastDirection = 'left'

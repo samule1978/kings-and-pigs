@@ -154,6 +154,27 @@ let levels = {
 }
 
 const keys = {
+  down: {
+    pressed: false,
+    count: 1
+  },
+  right: {
+    pressed: false,
+    count: 1
+  },
+  up: {
+    pressed: false,
+    count: 1
+  },
+  left: {
+    pressed: false,
+    count: 1
+  },
+  jump: {
+    pressed: false,
+    count: 1
+  },
+
   w: {
     pressed: false,
     count: 1
@@ -207,7 +228,7 @@ const player = new Player({
       imageSrc: './img/king/enterDoor.png',
       onComplete: () => {
         console.log('completed animation')
-        keys.w.count = 0
+        keys.up.count = 0
         gsap.to(overlay, {
           opacity: 1,
           onComplete: () => {

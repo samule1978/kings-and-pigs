@@ -4,15 +4,8 @@ window.addEventListener('keydown', (event) => {
   switch (event.key) {
     case 'ArrowUp':
     case 'w':      
-    case ' ':
-      if (keys.w.pressed) {
-        // Stop from jumping while pressing 'w' or 'ArrowUp' key        
-        //player.stopJumping()
-        return
-      }        
+      keys.up.pressed = true
 
-      keys.w.pressed = true            
-      
       for (const door of doors) {
         if (
           player.hitbox.position.x + player.hitbox.width <= door.position.x + door.width &&
@@ -29,31 +22,45 @@ window.addEventListener('keydown', (event) => {
         }
       }
       
+      break      
+    case ' ':
+      if (keys.jump.pressed) {
+        // Stop from jumping while pressing spacebar
+        //player.stopJumping()
+        return
+      }        
+
+      keys.jump.pressed = true            
+
       if  (
-            (!player.colliding.blocks.y.above) // Make sure you have not hit an obstacle above.
-            &&
-            ((!keys.a.pressed && !keys.d.pressed) && keys.w.count > 0 && keys.w.count <= player.velocity.multiJumpCount)
-            ||
-            ((keys.a.pressed || keys.d.pressed) && keys.w.count >= 1 && keys.w.count <= player.velocity.multiJumpCount && player.velocity.y < 3)
-          ) {        
-        player.velocity.y = -(keys.w.count * player.velocity.threshold)        
-        keys.w.count++
+        (!player.colliding.blocks.y.above) // Make sure you have not hit an obstacle above.
+        &&
+        ((!keys.left.pressed && !keys.right.pressed) && keys.up.count > 0 && keys.up.count <= player.velocity.multiJumpCount)
+        ||
+        ((keys.left.pressed || keys.right.pressed) && keys.up.count >= 1 && keys.up.count <= player.velocity.multiJumpCount && player.velocity.y < 3)
+      ) {        
+        player.velocity.y = -(keys.up.count * player.velocity.threshold)        
+        keys.up.count++
       } else {        
           player.stopJumping()        
       }                
-      break      
+
+      break    
     case 'ArrowLeft':
     case 'a':
       // move player to the left
-      keys.a.pressed = true
+      keys.left.pressed = true
+      keys.right.pressed = false
       break
     case 'ArrowRight':
     case 'd':
       // move player to the right
-      keys.d.pressed = true
+      keys.right.pressed = true
+      keys.left.pressed = false
       break
     case 'ArrowDown':
     case 's':
+      keys.down.pressed = true
       for (const box of boxes) {
         if (
           player.hitbox.position.x + (player.hitbox.width / 2) <= box.position.x + box.width
@@ -75,25 +82,27 @@ window.addEventListener('keyup', (event) => {
   switch (event.key) {
     case 'ArrowUp':
     case 'w':
+      keys.up.pressed = false      
+      break
     case ' ':
       player.stopJumping()
-      /*if (keys.w.count > 0) {
+      /*if (keys.up.count > 0) {
         setTimeout(() => {          
           player.stopJumping()
-        }, 250)        
+        }, 250)
       }*/
-      keys.w.pressed = false      
+      keys.jump.pressed = false      
       break
     case 'ArrowLeft':
     case 'a':
       // move player to the left      
-      keys.a.pressed = false
+      keys.left.pressed = false
       player.colliding.blocks.x.right = false      
       break
     case 'ArrowRight':
     case 'd':
       // move player to the right      
-      keys.d.pressed = false
+      keys.right.pressed = false
       player.colliding.blocks.x.left = false      
       break
   }
