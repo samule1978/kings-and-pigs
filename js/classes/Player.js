@@ -29,9 +29,9 @@ class Player extends Sprite {
     this.sides = {
       bottom: this.position.y + this.height,
     }
-    this.gravity = 1
+    this.gravity = 1    
 
-    this.collisionBlocks = collisionBlocks
+    this.collisionBlocks = collisionBlocks    
   }
 
   update() {
@@ -99,7 +99,7 @@ class Player extends Sprite {
       },
       width: 50,
       height: 53,
-    }
+    }  
   }
 
   checkForHorizontalCollisions() {
@@ -131,8 +131,6 @@ class Player extends Sprite {
           this.colliding.blocks.x.right = true
           break
         }
-      } else {
-
       }
     }
   }
@@ -146,16 +144,15 @@ class Player extends Sprite {
     for (const collisionBlock of this.collisionBlocks) {
       // if a collision exists
       if (
-        this.hitbox.position.x <=
-          collisionBlock.position.x + collisionBlock.width &&
-        this.hitbox.position.x + this.hitbox.width >=
-          collisionBlock.position.x &&
-        this.hitbox.position.y + this.hitbox.height >=
-          collisionBlock.position.y &&
-        this.hitbox.position.y <=
-          collisionBlock.position.y + collisionBlock.height
+        this.hitbox.position.x <= collisionBlock.position.x + collisionBlock.width 
+        && this.hitbox.position.x + this.hitbox.width >= collisionBlock.position.x 
+        && this.hitbox.position.y + this.hitbox.height >= collisionBlock.position.y 
+        && this.hitbox.position.y <= collisionBlock.position.y + collisionBlock.height
       ) {
-        if (this.velocity.y < 0) {
+        if (this.velocity.y < 0) {          
+          const message = messages?.[this.level]?.[collisionBlock.position.symbol];
+          if (message) alert(message);
+          
           this.velocity.y = 0          
           const offset = this.hitbox.position.y - this.position.y
           this.position.y = collisionBlock.position.y + collisionBlock.height - offset + 0.01

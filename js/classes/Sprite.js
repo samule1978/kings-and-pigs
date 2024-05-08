@@ -7,7 +7,7 @@ class Sprite {
     frameBuffer = 2,
     loop = true,
     autoplay = true,
-    message = ``
+    message = ``,    
   }) {
     this.position = position
     this.image = new Image()
@@ -25,9 +25,8 @@ class Sprite {
     this.animations = animations
     this.loop = loop
     this.autoplay = autoplay
-    this.message = message
+    this.message = message    
     this.currentAnimation
-
 
     if (this.animations) {
       for (let key in this.animations) {

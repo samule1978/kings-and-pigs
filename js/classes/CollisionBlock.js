@@ -4,6 +4,7 @@ class CollisionBlock {
     this.width = 64
     this.height = 64
 
+
     //this.draw()
   }
 

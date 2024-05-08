@@ -13,6 +13,165 @@ let collisionBlocks
 let background
 let doors
 let boxes
+
+let level = 1
+let levels = {
+  1: {
+    init: () => {
+      player.level = 1     
+      
+      parsedCollisions = collisions[player.level].parse2D()
+      collisionBlocks = parsedCollisions.createObjectsFrom2D()            
+      player.collisionBlocks = collisionBlocks      
+      if (player.currentAnimation) player.currentAnimation.isActive = false
+
+      background = new Sprite({
+        position: {
+          x: 0,
+          y: 0,
+        },
+        imageSrc: './img/backgroundLevel1.png',
+      })
+
+      doors = [
+        new Sprite({
+          position: {
+            x: 767,
+            y: 270,
+          },
+          imageSrc: './img/doorOpen.png',
+          frameRate: 5,
+          frameBuffer: 5,
+          loop: false,
+          autoplay: false,
+          message: `No. 2`,
+        }),
+      ]
+      
+      boxes = [
+        new Sprite({
+          position: {
+            x: 400,
+            y: 353,
+          },
+          imageSrc: './img/box.png',
+          frameRate: 1,
+          frameBuffer: 0,
+          loop: false,
+          autoplay: false,
+          message: `Box A`,          
+        }),
+        new Sprite({
+          position: {
+            x: 500,
+            y: 253,
+          },
+          imageSrc: './img/box.png',
+          frameRate: 1,
+          frameBuffer: 0,
+          loop: false,
+          autoplay: false, 
+          message: `Box B`,                
+        }),
+      ]
+    },
+  },
+  2: {
+    init: () => {
+      player.level = 2
+
+      parsedCollisions = collisions[player.level].parse2D()
+      collisionBlocks = parsedCollisions.createObjectsFrom2D()      
+      player.collisionBlocks = collisionBlocks      
+      player.position.x = 96
+      player.position.y = 140
+
+      if (player.currentAnimation) player.currentAnimation.isActive = false
+
+      background = new Sprite({
+        position: {
+          x: 0,
+          y: 0,
+        },
+        imageSrc: './img/backgroundLevel2.png',
+      })
+
+      doors = [
+        new Sprite({
+          position: {
+            x: 772.0,
+            y: 336,
+          },
+          imageSrc: './img/doorOpen.png',
+          frameRate: 5,
+          frameBuffer: 5,
+          loop: false,
+          autoplay: false,
+          message: `No. 3`,
+        }),
+      ]
+      
+      boxes = []
+    },
+  },
+  3: {
+    init: () => {
+      player.level = 3      
+      
+      parsedCollisions = collisions[player.level].parse2D()
+      collisionBlocks = parsedCollisions.createObjectsFrom2D()      
+      player.collisionBlocks = collisionBlocks
+      player.position.x = 750
+      player.position.y = 230
+      if (player.currentAnimation) player.currentAnimation.isActive = false
+
+      background = new Sprite({
+        position: {
+          x: 0,
+          y: 0,
+        },
+        imageSrc: './img/backgroundLevel3.png',
+      })
+
+      doors = [
+        new Sprite({
+          position: {
+            x: 176.0,
+            y: 335,
+          },
+          imageSrc: './img/doorOpen.png',
+          frameRate: 5,
+          frameBuffer: 5,
+          loop: false,
+          autoplay: false,
+          message: `No. 1`,
+        }),
+      ]
+      
+      boxes = []
+    },
+  },
+}
+
+const keys = {
+  w: {
+    pressed: false,
+    count: 1
+  },
+  a: {
+    pressed: false,
+    count: 1
+  },
+  d: {
+    pressed: false,
+    count: 1
+  },
+}
+
+const overlay = {
+  opacity: 0,
+}
+
 const player = new Player({
   imageSrc: './img/king/idle.png',
   frameRate: 11,
@@ -68,156 +227,6 @@ const player = new Player({
   },
 })
 
-let level = 1
-let levels = {
-  1: {
-    init: () => {
-      parsedCollisions = collisionsLevel1.parse2D()
-      collisionBlocks = parsedCollisions.createObjectsFrom2D()
-      player.collisionBlocks = collisionBlocks
-      if (player.currentAnimation) player.currentAnimation.isActive = false
-
-      background = new Sprite({
-        position: {
-          x: 0,
-          y: 0,
-        },
-        imageSrc: './img/backgroundLevel1.png',
-      })
-
-      doors = [
-        new Sprite({
-          position: {
-            x: 767,
-            y: 270,
-          },
-          imageSrc: './img/doorOpen.png',
-          frameRate: 5,
-          frameBuffer: 5,
-          loop: false,
-          autoplay: false,
-          message: `No. 2`,
-        }),
-      ]
-
-      boxes = [
-        new Sprite({
-          position: {
-            x: 400,
-            y: 353,
-          },
-          imageSrc: './img/box.png',
-          frameRate: 1,
-          frameBuffer: 0,
-          loop: false,
-          autoplay: false,
-        }),
-        new Sprite({
-          position: {
-            x: 500,
-            y: 353,
-          },
-          imageSrc: './img/box.png',
-          frameRate: 1,
-          frameBuffer: 0,
-          loop: false,
-          autoplay: false,          
-        }),
-      ]     
-    },
-  },
-  2: {
-    init: () => {
-      parsedCollisions = collisionsLevel2.parse2D()
-      collisionBlocks = parsedCollisions.createObjectsFrom2D()
-      player.collisionBlocks = collisionBlocks
-      player.position.x = 96
-      player.position.y = 140
-
-      if (player.currentAnimation) player.currentAnimation.isActive = false
-
-      background = new Sprite({
-        position: {
-          x: 0,
-          y: 0,
-        },
-        imageSrc: './img/backgroundLevel2.png',
-      })
-
-      doors = [
-        new Sprite({
-          position: {
-            x: 772.0,
-            y: 336,
-          },
-          imageSrc: './img/doorOpen.png',
-          frameRate: 5,
-          frameBuffer: 5,
-          loop: false,
-          autoplay: false,
-          message: `No. 3`,
-        }),
-      ]
-
-      boxes = []
-    },
-  },
-  3: {
-    init: () => {
-      parsedCollisions = collisionsLevel3.parse2D()
-      collisionBlocks = parsedCollisions.createObjectsFrom2D()
-      player.collisionBlocks = collisionBlocks
-      player.position.x = 750
-      player.position.y = 230
-      if (player.currentAnimation) player.currentAnimation.isActive = false
-
-      background = new Sprite({
-        position: {
-          x: 0,
-          y: 0,
-        },
-        imageSrc: './img/backgroundLevel3.png',
-      })
-
-      doors = [
-        new Sprite({
-          position: {
-            x: 176.0,
-            y: 335,
-          },
-          imageSrc: './img/doorOpen.png',
-          frameRate: 5,
-          frameBuffer: 5,
-          loop: false,
-          autoplay: false,
-          message: `No. 1`,
-        }),
-      ]
-
-      boxes = []
-    },
-  },
-}
-
-const keys = {
-  w: {
-    pressed: false,
-    count: 1
-  },
-  a: {
-    pressed: false,
-    count: 1
-  },
-  d: {
-    pressed: false,
-    count: 1
-  },
-}
-
-const overlay = {
-  opacity: 0,
-}
-
 function animate() {
   window.requestAnimationFrame(animate)
 
@@ -228,17 +237,17 @@ function animate() {
     })  
   }
 
-  doors.forEach((door) => {
+  for (const door of doors) {
     door.draw()
-  })
+  }
 
   player.handleInput(keys)
   player.draw()
   player.update()
-
-  boxes.forEach((box) => {
+  
+  for (const box of boxes) {
     box.draw()
-  })
+  }
   
   c.save()
   c.globalAlpha = overlay.opacity
